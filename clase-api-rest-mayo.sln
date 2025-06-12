@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "clase-uno", "clase-uno\clas
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "clase-dos", "clase-dos\clase-dos.csproj", "{D9602FD1-FCCB-4657-9CCE-7B19EFE82240}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "clase-tres-api-categoria", "clase-tres-api-categoria\clase-tres-api-categoria.csproj", "{26B7194C-97BA-41CC-BD08-2E20EBA8E1F5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{D9602FD1-FCCB-4657-9CCE-7B19EFE82240}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D9602FD1-FCCB-4657-9CCE-7B19EFE82240}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D9602FD1-FCCB-4657-9CCE-7B19EFE82240}.Release|Any CPU.Build.0 = Release|Any CPU
+		{26B7194C-97BA-41CC-BD08-2E20EBA8E1F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{26B7194C-97BA-41CC-BD08-2E20EBA8E1F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{26B7194C-97BA-41CC-BD08-2E20EBA8E1F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{26B7194C-97BA-41CC-BD08-2E20EBA8E1F5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
