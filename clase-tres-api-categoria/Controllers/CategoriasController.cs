@@ -1,4 +1,5 @@
 ﻿using clase_tres_api_categoria.Mediadores;
+using clase_tres_api_categoria.Modelos;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -7,35 +8,43 @@ namespace clase_tres_api_categoria.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CategoriasController : ControllerBase
+    public class CategoriasController : CustomeControllerBase
     {
         private readonly IMediator _mediator;
+        private readonly ILogger<CategoriasController> _logger;
 
-        public CategoriasController(IMediator mediator)
+        public CategoriasController(IMediator mediator, ILogger<CategoriasController> logger)
         {
             _mediator = mediator;
+            _logger = logger;
         }
 
         [HttpGet]
         public async Task<IActionResult> ListarCategorias()
         {
+            _logger.LogDebug("Este es log debug");
+            _logger.LogInformation("Este es log Information");
+            _logger.LogCritical("Este es log Critical");
+            _logger.LogError("Este es log Error");
+            _logger.LogWarning("Este es log Warning");
+            _logger.LogTrace("Este es log Trace");
             ListarCategoriasComando listar = new ListarCategoriasComando();
-            var respuesta = await _mediator.Send(listar);
-            return Ok(respuesta);
+            Respuesta<List<Categoria>> respuesta = await _mediator.Send(listar);
+            return RespuestaPersonalizada(respuesta);
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> BuscarUnaCategoria(int id)
         {
-            var respuesta = await _mediator.Send(new BuscarCategoriaComando(id));
-            return Ok(respuesta);
+            Respuesta<Categoria> respuesta = await _mediator.Send(new BuscarCategoriaComando(id));
+            return RespuestaPersonalizada(respuesta);
         }
 
         [HttpPost]
         public async Task<IActionResult> CrearCategoria(CrearCategoriaComando request)
         {
-            var respuesta = await _mediator.Send(request);
-            return Ok(respuesta);
+            Respuesta<Categoria> respuesta = await _mediator.Send(request);
+            return RespuestaPersonalizada(respuesta);
         }
 
         [HttpPut("{id}")]
@@ -43,15 +52,15 @@ namespace clase_tres_api_categoria.Controllers
         {
             request = new ActualizarCategoriaComando(id, request.Nombre, request.Descripcion, request.Estado);
 
-            var respuesta = await _mediator.Send(request);
-            return Ok(respuesta);
+            Respuesta<Categoria> respuesta = await _mediator.Send(request);
+            return RespuestaPersonalizada(respuesta);
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> EliminarCategoria(int id)
         {
-            bool resultado = await _mediator.Send(new EliminarCategoriaComando(id));
-            return Ok(resultado);
+            Respuesta<bool> resultado = await _mediator.Send(new EliminarCategoriaComando(id));
+            return RespuestaPersonalizada(resultado);
         }
     }
 }

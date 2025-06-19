@@ -1,0 +1,39 @@
+{
+  "Serilog": {
+    "Using": [ "Serilog.Sinks.File", "Serilog.Sinks.Console", "Serilog.Sinks.MSSqlServer" ],
+    "MinimumLevel": {
+      "Default": "Debug"
+    },
+    "WriteTo": [
+      {
+        "Name": "File",
+        "Args": {
+          "path": "../logs/webapi-.log",
+          "rollingInterval": "Day",
+          "outputTemplate": "{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} {CorrelationId} {Level:u3} {Username} {Message:lj}{Exception}{NewLine}"
+        }
+      },
+      {
+        "Name": "Console",
+        "Args": {
+          "outputTemplate": "{Timestamp:yyyy-MM-dd HH:mm:ss} [{Level:u3}] {Message}{NewLine}{Exception}"
+        }
+      },
+      {
+        "Name": "MSSqlServer",
+        "Args": {
+          "connectionString": "Server=192.168.1.20;Database=Clase02;User Id=SA;Password=Ab123456*;TrustServerCertificate=True",
+          "sinkOptionsSection": {
+            "tableName": "Logs",
+            "schemaName": "EventLogging",
+            "autoCreateSqlTable": true,
+            "batchPostingLimit": 1000,
+            "batchPeriod": "0.00:00:30"
+          },
+          "restrictedToMinimumLevel": "Information",
+          "columnOptionsSection": {}
+        }
+      }
+    ]
+  }
+}

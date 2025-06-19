@@ -6,24 +6,27 @@ namespace clase_tres_api_categoria.Persistencia
 {
     public interface ICategoriaPersistencia
     {
-        Task<List<Categoria>> Listar();
-        Task<Categoria> Buscar(int id);
-        Task<Categoria> Crear(Categoria categoria);
-        Task<Categoria> Actualizar(Categoria categoria);
-        Task<bool> Eliminar(int id);
+        Task<Respuesta<List<Categoria>>> Listar();
+        Task<Respuesta<Categoria>> Buscar(int id);
+        Task<Respuesta<Categoria>> Crear(Categoria categoria);
+        Task<Respuesta<Categoria>> Actualizar(Categoria categoria);
+        Task<Respuesta<bool>> Eliminar(int id);
     }
 
     public class CategoriaPersistencia : ICategoriaPersistencia
     {
         private readonly string _cadenaConexion;
+        private readonly ILogger<CategoriaPersistencia> _logger;
 
-        public CategoriaPersistencia()
+        public CategoriaPersistencia(ILogger<CategoriaPersistencia> logger)
         {
             _cadenaConexion = Environment.GetEnvironmentVariable("CADENA") ?? "";
+            _logger = logger;
         }
 
-        public async Task<Categoria> Actualizar(Categoria categoria)
+        public async Task<Respuesta<Categoria>> Actualizar(Categoria categoria)
         {
+            Respuesta<Categoria> respuesta = new();
             using (var connection = new SqlConnection(_cadenaConexion))
             {
                 try
@@ -46,13 +49,19 @@ WHERE Id = @Id";
                     int resultado = await connection.ExecuteAsync(sql, parameters);
 
                     if (resultado > 0)
-                        return categoria;
+                        return respuesta.RespuestaExito(categoria);
 
-                    return null;
+                    return respuesta.RespuestaError(400,
+                        new Mensaje("U-F-C",
+                        $"No se actualizo ningun registro con el ID {categoria.Id}",
+                        ""));
                 }
                 catch (Exception ex)
                 {
-                    return null;
+                    return respuesta.RespuestaError(500,
+                        new Mensaje("U-F-C-TC",
+                        $"No se actualizo ningun registro con el ID {categoria.Id}",
+                        ex.Message));
                 }
                 finally
                 {
@@ -62,8 +71,9 @@ WHERE Id = @Id";
             }
         }
 
-        public async Task<Categoria> Buscar(int id)
+        public async Task<Respuesta<Categoria>> Buscar(int id)
         {
+            Respuesta<Categoria> respuesta = new();
             using (var connection = new SqlConnection(_cadenaConexion))
             {
                 try
@@ -75,11 +85,14 @@ FROM Categorias WHERE Id = @Id";
 
                     Categoria resultado = await connection.QueryFirstAsync<Categoria>(sql, new { Id = id });
 
-                    return resultado;
+                    return respuesta.RespuestaExito(resultado);
                 }
                 catch (Exception ex)
                 {
-                    return null;
+                    return respuesta.RespuestaError(500,
+                        new Mensaje("S-F-C-TC",
+                        $"No se encontro ningun registro con el ID {id}",
+                        ex.Message));
                 }
                 finally
                 {
@@ -89,8 +102,9 @@ FROM Categorias WHERE Id = @Id";
             }
         }
 
-        public async Task<Categoria> Crear(Categoria categoria)
+        public async Task<Respuesta<Categoria>> Crear(Categoria categoria)
         {
+            Respuesta<Categoria> respuesta = new();
             using (var connection = new SqlConnection(_cadenaConexion))
             {
                 try
@@ -113,14 +127,20 @@ VALUES (@Nombre,@Descripcion,@FechaCreacion,@Estado)";
                     {
                         int ultimoId = await connection.QueryFirstAsync<int>("SELECT @@IDENTITY");
                         categoria.Id = ultimoId;
-                        return categoria;
+                        return respuesta.RespuestaExito(categoria);
                     }
 
-                    return null;
+                    return respuesta.RespuestaError(400,
+                        new Mensaje("I-F-C",
+                        $"No se inserto la categoria {categoria.Nombre} a base de datos",
+                        ""));
                 }
                 catch (Exception ex)
                 {
-                    return null;
+                    return respuesta.RespuestaError(500,
+                        new Mensaje("I-F-C",
+                        $"No se inserto la categoria {categoria.Nombre} a base de datos",
+                        ex.Message));
                 }
                 finally
                 {
@@ -130,8 +150,9 @@ VALUES (@Nombre,@Descripcion,@FechaCreacion,@Estado)";
             }
         }
 
-        public async Task<bool> Eliminar(int id)
+        public async Task<Respuesta<bool>> Eliminar(int id)
         {
+            Respuesta<bool> respuesta = new();
             using (var connection = new SqlConnection(_cadenaConexion))
             {
                 try
@@ -143,13 +164,19 @@ VALUES (@Nombre,@Descripcion,@FechaCreacion,@Estado)";
                     int resultado = await connection.ExecuteAsync(sql, new { Id = id });
 
                     if (resultado > 0)
-                        return true;
+                        return respuesta.RespuestaExito(true);
 
-                    return false;
+                    return respuesta.RespuestaError(400,
+                        new Mensaje("D-F-C",
+                        $"No se elimino la categoria con el id {id}",
+                        ""));
                 }
                 catch (Exception ex)
                 {
-                    return false;
+                    return respuesta.RespuestaError(500,
+                        new Mensaje("D-F-C",
+                        $"No se elimino la categoria con el id {id}",
+                        ex.Message));
                 }
                 finally
                 {
@@ -159,8 +186,10 @@ VALUES (@Nombre,@Descripcion,@FechaCreacion,@Estado)";
             }
         }
 
-        public async Task<List<Categoria>> Listar()
+        public async Task<Respuesta<List<Categoria>>> Listar()
         {
+            _logger.LogWarning("Estoy desde la capa de persistencia");
+            Respuesta<List<Categoria>> respuesta = new();
             using (var connection = new SqlConnection(_cadenaConexion))
             {
                 try
@@ -171,11 +200,14 @@ VALUES (@Nombre,@Descripcion,@FechaCreacion,@Estado)";
 
                     var resultado = await connection.QueryAsync<Categoria>(sql);
 
-                    return resultado.ToList();
+                    return respuesta.RespuestaExito(resultado.ToList());
                 }
                 catch (Exception ex)
                 {
-                    return new List<Categoria>();
+                    return respuesta.RespuestaError(500,
+                        new Mensaje("S-F-C",
+                        $"No se encontraron categorias en la base de datos",
+                        ex.Message));
                 }
                 finally
                 {

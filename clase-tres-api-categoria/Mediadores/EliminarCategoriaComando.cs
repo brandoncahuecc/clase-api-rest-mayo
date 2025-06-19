@@ -4,9 +4,9 @@ using MediatR;
 
 namespace clase_tres_api_categoria.Mediadores
 {
-    public record EliminarCategoriaComando(int Id) : IRequest<bool>;
+    public record EliminarCategoriaComando(int Id) : IRequest<Respuesta<bool>>;
 
-    public class EliminarCategoriaHandler : IRequestHandler<EliminarCategoriaComando, bool>
+    public class EliminarCategoriaHandler : IRequestHandler<EliminarCategoriaComando, Respuesta<bool>>
     {
         private readonly ICategoriaPersistencia _persistencia;
 
@@ -15,14 +15,14 @@ namespace clase_tres_api_categoria.Mediadores
             _persistencia = persistencia;
         }
 
-        public async Task<bool> Handle(EliminarCategoriaComando request, CancellationToken cancellationToken)
+        public async Task<Respuesta<bool>> Handle(EliminarCategoriaComando request, CancellationToken cancellationToken)
         {
-            Categoria? categoria = await _persistencia.Buscar(request.Id);
+            Respuesta<Categoria> categoria = await _persistencia.Buscar(request.Id);
+            Respuesta<bool> respuesta = new();
+            if (!categoria.EsExitoso)
+                return respuesta.RespuestaError(404, categoria.Mensaje);
 
-            if (categoria is null)
-                throw new DirectoryNotFoundException("No se encontro la categoria a eliminar");
-
-            bool respuesta = await _persistencia.Eliminar(request.Id);
+            respuesta = await _persistencia.Eliminar(request.Id);
             return respuesta;
         }
     }

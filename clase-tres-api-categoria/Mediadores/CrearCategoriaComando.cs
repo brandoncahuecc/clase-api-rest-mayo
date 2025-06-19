@@ -4,9 +4,9 @@ using MediatR;
 
 namespace clase_tres_api_categoria.Mediadores
 {
-    public record CrearCategoriaComando(string Nombre, string Descripcion) : IRequest<Categoria>;
+    public record CrearCategoriaComando(string Nombre, string Descripcion) : IRequest<Respuesta<Categoria>>;
 
-    public class CrearCategoriaHandler : IRequestHandler<CrearCategoriaComando, Categoria>
+    public class CrearCategoriaHandler : IRequestHandler<CrearCategoriaComando, Respuesta<Categoria>>
     {
         private readonly ICategoriaPersistencia _persistencia;
 
@@ -15,7 +15,7 @@ namespace clase_tres_api_categoria.Mediadores
             _persistencia = persistencia;
         }
 
-        public async Task<Categoria> Handle(CrearCategoriaComando request, CancellationToken cancellationToken)
+        public async Task<Respuesta<Categoria>> Handle(CrearCategoriaComando request, CancellationToken cancellationToken)
         {
             Categoria categoria = new()
             {
@@ -25,9 +25,8 @@ namespace clase_tres_api_categoria.Mediadores
                 Estado = true
             };
 
-            categoria = await _persistencia.Crear(categoria);
-
-            return categoria;
+            Respuesta<Categoria> respuesta = await _persistencia.Crear(categoria);
+            return respuesta;
         }
     }
 }
