@@ -9,6 +9,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "clase-dos", "clase-dos\clas
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "clase-tres-api-categoria", "clase-tres-api-categoria\clase-tres-api-categoria.csproj", "{26B7194C-97BA-41CC-BD08-2E20EBA8E1F5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "clase-cinco-api-autenticacion", "clase-cinco-api-autenticacion\clase-cinco-api-autenticacion.csproj", "{6E7756F7-D3BA-42AC-A824-9AAA1E43FF7B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "clase-cinco-biblioteca", "clase-cinco-biblioteca\clase-cinco-biblioteca.csproj", "{0293142D-8155-4DDF-A77C-FDCE78B94A44}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +31,14 @@ Global
 		{26B7194C-97BA-41CC-BD08-2E20EBA8E1F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{26B7194C-97BA-41CC-BD08-2E20EBA8E1F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{26B7194C-97BA-41CC-BD08-2E20EBA8E1F5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6E7756F7-D3BA-42AC-A824-9AAA1E43FF7B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6E7756F7-D3BA-42AC-A824-9AAA1E43FF7B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6E7756F7-D3BA-42AC-A824-9AAA1E43FF7B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6E7756F7-D3BA-42AC-A824-9AAA1E43FF7B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0293142D-8155-4DDF-A77C-FDCE78B94A44}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0293142D-8155-4DDF-A77C-FDCE78B94A44}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0293142D-8155-4DDF-A77C-FDCE78B94A44}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0293142D-8155-4DDF-A77C-FDCE78B94A44}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

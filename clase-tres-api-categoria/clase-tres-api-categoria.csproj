@@ -21,4 +21,8 @@
 	  <PackageReference Include="Serilog.Sinks.MSSqlServer" Version="8.2.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\clase-cinco-biblioteca\clase-cinco-biblioteca.csproj" />
+  </ItemGroup>
+
 </Project>

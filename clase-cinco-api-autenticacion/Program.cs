@@ -1,5 +1,6 @@
+using clase_cinco_api_autenticacion.Persistencia;
+using clase_cinco_api_autenticacion.Servicio;
 using clase_cinco_biblioteca.Dependencias;
-using clase_tres_api_categoria.Persistencia;
 using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,10 +14,8 @@ builder.Services.AddOpenApi();
 
 builder.Logging.RegistrarBitacora();
 
-builder.Services.RegistrarReddis();
-
-builder.Services.AddSingleton<ICategoriaPersistencia, CategoriaPersistencia>();
-builder.Services.AddSingleton<ICachePersistencia, CachePersistencia>();
+builder.Services.AddSingleton<IUsuarioPersistencia, UsuarioPersistencia>();
+builder.Services.AddSingleton<IGeneradorToken, GeneradorToken>();
 
 var app = builder.Build();
 

@@ -1,7 +1,7 @@
-﻿using clase_tres_api_categoria.Modelos;
+﻿using clase_cinco_biblioteca.Modelos;
 using Microsoft.AspNetCore.Mvc;
 
-namespace clase_tres_api_categoria.Controllers
+namespace clase_cinco_biblioteca.Controllers
 {
     public class CustomeControllerBase : ControllerBase
     {

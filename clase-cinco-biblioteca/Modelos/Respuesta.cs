@@ -1,11 +1,17 @@
-﻿namespace clase_tres_api_categoria.Modelos
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace clase_cinco_biblioteca.Modelos
 {
     public class Respuesta<T>
     {
         public bool EsExitoso { get; set; }
         public int CodigoEstado { get; set; }
         public Mensaje Mensaje { get; set; }
-        public T Data { get; set; } 
+        public T Data { get; set; }
 
         public Respuesta<T> RespuestaExito(T data)
         {
