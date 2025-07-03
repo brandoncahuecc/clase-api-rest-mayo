@@ -1,0 +1,6 @@
+@clase_seis_api_gateway_HostAddress = http://localhost:5130
+
+GET {{clase_seis_api_gateway_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

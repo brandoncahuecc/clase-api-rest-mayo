@@ -1,4 +1,5 @@
 using clase_cinco_biblioteca.Dependencias;
+using clase_cinco_biblioteca.Middlewares;
 using clase_tres_api_categoria.Persistencia;
 using Scalar.AspNetCore;
 
@@ -12,13 +13,15 @@ builder.Services.AddControllers();
 builder.Services.AddOpenApi();
 
 builder.Logging.RegistrarBitacora();
-
 builder.Services.RegistrarReddis();
+builder.Services.RegistrarValidacionTokenJwt();
 
 builder.Services.AddSingleton<ICategoriaPersistencia, CategoriaPersistencia>();
 builder.Services.AddSingleton<ICachePersistencia, CachePersistencia>();
 
 var app = builder.Build();
+
+app.UseMiddleware<PerzonalizadoMiddleware>();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

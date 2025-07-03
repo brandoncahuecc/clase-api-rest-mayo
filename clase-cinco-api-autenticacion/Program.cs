@@ -1,6 +1,7 @@
 using clase_cinco_api_autenticacion.Persistencia;
 using clase_cinco_api_autenticacion.Servicio;
 using clase_cinco_biblioteca.Dependencias;
+using clase_cinco_biblioteca.Middlewares;
 using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -18,6 +19,8 @@ builder.Services.AddSingleton<IUsuarioPersistencia, UsuarioPersistencia>();
 builder.Services.AddSingleton<IGeneradorToken, GeneradorToken>();
 
 var app = builder.Build();
+
+app.UseMiddleware<PerzonalizadoMiddleware>();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

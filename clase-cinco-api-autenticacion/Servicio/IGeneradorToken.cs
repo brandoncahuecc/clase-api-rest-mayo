@@ -25,6 +25,7 @@ namespace clase_cinco_api_autenticacion.Servicio
                 Subject = new ClaimsIdentity([
                     new Claim(ClaimTypes.Sid, user.Id.ToString()),
                     new Claim(ClaimTypes.Role, "Admin"),
+                    new Claim(ClaimTypes.Role, "User"),
                     new Claim(ClaimTypes.Name, user.NombreCompleto),
                     new Claim(ClaimTypes.Email, user.Email),
                     ]),

@@ -1,0 +1,19 @@
+[
+  {
+    "Name": "Nuevo perfil",
+    "Projects": [
+      {
+        "Path": "clase-tres-api-categoria\\clase-tres-api-categoria.csproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "clase-cinco-api-autenticacion\\clase-cinco-api-autenticacion.csproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "clase-seis-api-gateway\\clase-seis-api-gateway.csproj",
+        "Action": "Start"
+      }
+    ]
+  }
+]

@@ -3,11 +3,13 @@ using clase_cinco_biblioteca.Modelos;
 using clase_tres_api_categoria.Mediadores;
 using clase_tres_api_categoria.Modelos;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace clase_tres_api_categoria.Controllers
 {
+    //[Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class CategoriasController : CustomeControllerBase
@@ -21,6 +23,7 @@ namespace clase_tres_api_categoria.Controllers
             _logger = logger;
         }
 
+        [Authorize]
         [HttpGet]
         public async Task<IActionResult> ListarCategorias()
         {
@@ -35,6 +38,7 @@ namespace clase_tres_api_categoria.Controllers
             return RespuestaPersonalizada(respuesta);
         }
 
+        [Authorize(Roles = "User, Guest")]
         [HttpGet("{id}")]
         public async Task<IActionResult> BuscarUnaCategoria(int id)
         {
