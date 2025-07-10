@@ -55,7 +55,7 @@ services:
     image: ${DOCKER_REGISTRY-}clasesieteapicatalogo
     build:
       context: .
-      dockerfile: clase-tres-api-catalogo/Dockerfile
+      dockerfile: clase-siete-api-catalogo/Dockerfile
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_HTTP_PORTS=80
