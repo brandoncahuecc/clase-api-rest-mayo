@@ -7,7 +7,9 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 
-builder.Configuration.AddJsonFile("ocelot.json", true, true);
+string ocelotEnv = Environment.GetEnvironmentVariable("OCELOT_ENVIRONMENT") ?? string.Empty;
+
+builder.Configuration.AddJsonFile($"ocelot{ocelotEnv}.json", true, true);
 builder.Services.AddOcelot();
 
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
