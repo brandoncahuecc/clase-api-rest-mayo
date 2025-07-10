@@ -49,6 +49,20 @@ services:
     depends_on:
       api-redis:
         condition: service_started
+    
+  api-catalogo:
+    container_name: curso-api-catalogo
+    image: ${DOCKER_REGISTRY-}clasesieteapicatalogo
+    build:
+      context: .
+      dockerfile: clase-tres-api-catalogo/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=80
+      - CLAVE_SECRETA_JWT=MiClaveSecreta2025@MiClaveSecreta2025@MiClaveSecreta2025@CursoApiNetCore2025
+    networks:
+      red-curso-api:
+    restart: always
 
   api-redis:
     container_name: curso-api-redis
@@ -57,6 +71,33 @@ services:
       red-curso-api:
     restart: always
     
+  prometheus-server:
+    container_name: curso-api-prometheus
+    image: prom/prometheus
+    ports: 
+      - 9000:9000
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+    networks:
+      red-curso-api:
+    restart: always
+
+  grafana-server:
+    container_name: curso-api-grafana
+    image: grafana/grafana
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    depends_on:
+      prometheus-server:
+        condition: service_started
+    networks:
+      red-curso-api:
+    restart: always
+
 networks:
   red-curso-api:
     driver: bridge

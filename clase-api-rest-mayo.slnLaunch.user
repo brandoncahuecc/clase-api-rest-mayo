@@ -13,6 +13,10 @@
       {
         "Path": "clase-seis-api-gateway\\clase-seis-api-gateway.csproj",
         "Action": "Start"
+      },
+      {
+        "Path": "..\\clase-siete-api-catalogo\\clase-siete-api-catalogo.csproj",
+        "Action": "Start"
       }
     ]
   }

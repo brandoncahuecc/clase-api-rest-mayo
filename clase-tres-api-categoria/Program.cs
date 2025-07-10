@@ -1,11 +1,14 @@
 using clase_cinco_biblioteca.Dependencias;
 using clase_cinco_biblioteca.Middlewares;
 using clase_tres_api_categoria.Persistencia;
+using Prometheus;
 using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.UseHttpClientMetrics();
+
 builder.Services.RegistrarMediador<Program>();
 
 builder.Services.AddControllers();
@@ -20,6 +23,9 @@ builder.Services.AddSingleton<ICategoriaPersistencia, CategoriaPersistencia>();
 builder.Services.AddSingleton<ICachePersistencia, CachePersistencia>();
 
 var app = builder.Build();
+
+app.UseMetricServer();
+app.UseHttpMetrics();
 
 app.UseMiddleware<PerzonalizadoMiddleware>();
 

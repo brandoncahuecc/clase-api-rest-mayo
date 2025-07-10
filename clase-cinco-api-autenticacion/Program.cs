@@ -2,11 +2,14 @@ using clase_cinco_api_autenticacion.Persistencia;
 using clase_cinco_api_autenticacion.Servicio;
 using clase_cinco_biblioteca.Dependencias;
 using clase_cinco_biblioteca.Middlewares;
+using Prometheus;
 using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.UseHttpClientMetrics();
+
 builder.Services.RegistrarMediador<Program>();
 
 builder.Services.AddControllers();
@@ -19,6 +22,9 @@ builder.Services.AddSingleton<IUsuarioPersistencia, UsuarioPersistencia>();
 builder.Services.AddSingleton<IGeneradorToken, GeneradorToken>();
 
 var app = builder.Build();
+
+app.UseMetricServer();
+app.UseHttpMetrics();
 
 app.UseMiddleware<PerzonalizadoMiddleware>();
 
