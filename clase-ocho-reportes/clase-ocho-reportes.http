@@ -1,0 +1,6 @@
+@clase_ocho_reportes_HostAddress = http://localhost:5148
+
+GET {{clase_ocho_reportes_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

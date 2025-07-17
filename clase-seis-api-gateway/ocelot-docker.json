@@ -59,6 +59,18 @@
       ],
       "UpstreamPathTemplate": "/gateway/Catalogos/{id}",
       "UpstreamHttpMethod": [ "Get" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/Reportes/{tipoReporte}/{id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "api-reporte",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/Reportes/{tipoReporte}/{id}",
+      "UpstreamHttpMethod": [ "Get" ]
     }
   ],
   "GlobalConfiguration": {

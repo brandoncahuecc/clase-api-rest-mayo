@@ -23,7 +23,7 @@ namespace clase_tres_api_categoria.Controllers
             _logger = logger;
         }
 
-        [Authorize]
+        //[Authorize]
         [HttpGet]
         public async Task<IActionResult> ListarCategorias()
         {

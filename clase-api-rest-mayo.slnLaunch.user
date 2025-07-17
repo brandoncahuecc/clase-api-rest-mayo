@@ -7,15 +7,11 @@
         "Action": "Start"
       },
       {
-        "Path": "clase-cinco-api-autenticacion\\clase-cinco-api-autenticacion.csproj",
-        "Action": "Start"
-      },
-      {
         "Path": "clase-seis-api-gateway\\clase-seis-api-gateway.csproj",
         "Action": "Start"
       },
       {
-        "Path": "..\\clase-siete-api-catalogo\\clase-siete-api-catalogo.csproj",
+        "Path": "clase-ocho-reportes\\clase-ocho-reportes.csproj",
         "Action": "Start"
       }
     ]

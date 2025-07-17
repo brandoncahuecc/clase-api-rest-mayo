@@ -49,6 +49,22 @@ services:
     depends_on:
       api-redis:
         condition: service_started
+
+  api-reporte:
+    container_name: curso-api-reporte
+    image: ${DOCKER_REGISTRY-}claseochoapireporte
+    build:
+      context: .
+      dockerfile: clase-ocho-reportes/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=80
+      - CLAVE_SECRETA_JWT=MiClaveSecreta2025@MiClaveSecreta2025@MiClaveSecreta2025@CursoApiNetCore2025
+      - URI_CATEGORIAS=https://api-categoria:80/api/
+      - URI_LOGOS=https://previews.123rf.com/images/ionutparvu/ionutparvu1612/ionutparvu161200410/
+    networks:
+      red-curso-api:
+    restart: always
     
   api-catalogo:
     container_name: curso-api-catalogo
