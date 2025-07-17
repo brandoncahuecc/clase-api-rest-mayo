@@ -6,6 +6,32 @@ USER $APP_UID
 WORKDIR /app
 EXPOSE 80
 
+# Instalar wkhtmltopdf y sus dependencias en la imagen base.
+# Esto es crucial para DinkToPdf.
+# Las dependencias son para sistemas basados en Debian/Ubuntu (como la imagen '9.0').
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    wget \
+    libfontconfig1 \
+    libfreetype6 \
+    libx11-6 \
+    libxext6 \
+    libxrender1 \
+    xfonts-base \
+    xfonts-75dpi \
+    fontconfig \
+    # Descarga e instala la versión específica de wkhtmltopdf.
+    # Asegúrate de que la URL y la arquitectura coincidan con tu imagen base (e.g., amd64 para la mayoría de los casos).
+    # Visita https://wkhtmltopdf.org/downloads.html para encontrar la URL más reciente y correcta
+    # para tu distribución de Linux (la versión 9.0 de .NET Core se basa en Ubuntu 22.04 Jammy Jellyfish).
+    && wget https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6.1-2/wkhtmltox_0.12.6.1-2.jammy_amd64.deb \
+    && dpkg -i wkhtmltox_0.12.6.1-2.jammy_amd64.deb \
+    # Limpia los archivos descargados y el caché de apt para reducir el tamaño de la imagen.
+    && rm wkhtmltox_0.12.6.1-2.jammy_amd64.deb \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
+# Configura la variable de entorno necesaria para wkhtmltopdf en entornos sin cabeza (headless).
+ENV QT_QPA_PLATFORM=off
 
 # Esta fase se usa para compilar el proyecto de servicio
 FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
